@@ -52,7 +52,6 @@ void lobby(){
     scanf("%d",&lob);
 
     if(lob == 1){
-        printf("This is registration.\n");
         registration();
     }else if(lob == 2){
         login();
@@ -234,7 +233,7 @@ void loadingDataFromFile(){
 }
 
 void registration(){
-
+    printf("This is registration.\n");
     checkValid = -1;
     while (checkValid == -1){
         printf("Please enter your email : ");
