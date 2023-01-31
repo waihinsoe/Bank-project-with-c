@@ -18,6 +18,7 @@ char toValid[10] = {'@','g','m','a','i','l','.','c','o','m'};
 
 
 void dataPrinting();
+void easyToGuess(char uPass[50]);
 int charCount(char toCount[50]);
 void myStrcmp(char userInputChar[50]);
 void emailValidation(char uEmail[50]);
@@ -32,6 +33,8 @@ int eFound = -1;
 int checkValid = -1;
 int pFound = -1;
 int globalIndex = 0;
+int guessPass = -1;
+
 
 
 int main() {
@@ -245,13 +248,22 @@ void registration(){
     myStrcmp(info[globalIndex].email);
 
     if(eFound == -1){
+
+        guessPass = -1;
+        while (guessPass == -1) {
+            printf("Please enter password :");
+            scanf(" %[^\n]", &info[globalIndex].password);
+            easyToGuess(info[globalIndex].password);
+        }
+
         printf("Please enter your age :");
         scanf(" %d",&info[globalIndex].age);
 
         printf("Please enter your name:");
         scanf(" %[^\n]",&info[globalIndex].name);
-        printf("Please enter password :");
-        scanf(" %[^\n]", &info[globalIndex].password);
+
+
+
         info[globalIndex].id = globalIndex + 1;
         globalIndex++;
 
@@ -259,6 +271,40 @@ void registration(){
     }else {
         printf("email is already exist! Try again!\n");
         registration();
+    }
+
+}
+
+void easyToGuess(char uPass[50]) {
+    int specialCount = 0;
+    int numberCount = 0;
+    int upperCount = 0;
+    int lowerCount = 0;
+    int uPassCount = charCount(uPass);
+
+    if(uPassCount >= 8){
+        for (int i = 0; i < uPassCount; ++i) {
+            if( uPass[i] >= 33 && uPass[i] <= 47) {
+                specialCount++;
+            }else if(uPass[i] >= 48 && uPass[i] <=57){
+                numberCount++;
+            }else if(uPass[i] >=65 && uPass[i] <= 90) {
+                upperCount++;
+            }else if(uPass[i] >= 97 && uPass[i] <= 122) {
+                lowerCount++;
+            }
+        }
+    }else{
+        printf("Must be 8 characters or more\n");
+        return;
+    }
+
+    if(specialCount > 0 && numberCount > 0 && upperCount > 0 && lowerCount > 0) {
+        printf("strong password!\n");
+        guessPass = 1;
+    }else{
+        printf("weak password!\n");
+        guessPass = -1;
     }
 
 }
