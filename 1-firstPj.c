@@ -18,6 +18,7 @@ char toValid[10] = {'@','g','m','a','i','l','.','c','o','m'};
 
 
 void dataPrinting();
+void copyChar(char fromFirst[50], char toSecond[50]);
 void easyToGuess(char uPass[50]);
 int charCount(char toCount[50]);
 void myStrcmp(char userInputChar[50]);
@@ -236,13 +237,15 @@ void loadingDataFromFile(){
 }
 
 void registration(){
+    char reEmail[50];
     printf("This is registration.\n");
     checkValid = -1;
     while (checkValid == -1){
         printf("Please enter your email : ");
-        scanf(" %[^\n]", &info[globalIndex].email);
-        emailValidation(info[globalIndex].email);
+        scanf(" %[^\n]", &reEmail);
+        emailValidation(reEmail);
     }
+    copyChar(reEmail,info[globalIndex].email);
 
     eFound = -1;
     myStrcmp(info[globalIndex].email);
@@ -307,4 +310,14 @@ void easyToGuess(char uPass[50]) {
         guessPass = -1;
     }
 
+}
+
+void copyChar(char fromFirst[50], char toSecond[50]) {
+    for(int i=0; i<50; i++) {
+        toSecond[i] = '\0';
+    }
+    int index = charCount(fromFirst);
+    for (int i = 0; i < index; ++i) {
+        toSecond[i] = fromFirst[i];
+    }
 }
